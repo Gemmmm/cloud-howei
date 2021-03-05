@@ -1,0 +1,23 @@
+server:
+  port: 7001
+
+eureka:
+  instance:
+    hostname: localhost #eureka服务端的实例名称
+  client:
+    register-with-eureka: true #  向注册中心注册自己
+    fetch-registry: false #表示自己就是注册中心，不检索服务
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+
+  server:
+    enable-self-preservation: false  #关闭自我保护机制，不可用服务及时删除
+    eviction-interval-timer-in-ms: 60000
+spring:
+  application:
+    name: cloud-howei-eureka
+
+
+  freemarker:
+    template-loader-path: classpath:/templates
+    suffix: .ftl

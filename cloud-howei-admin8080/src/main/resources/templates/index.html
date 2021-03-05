@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script type="text/javascript" th:src="@{/js/sockjs.min.js}" src="../static/js/sockjs.min.js"></script>
+    <script type="text/javascript" th:src="@{/js/jquery.min.js}" src="../static/js/jquery.min.js "></script>
+</head>
+<body>
+index
+<button onclick="send()"> 提交</button>
+</body>
+<script type="text/javascript">
+
+    $(function () {
+        $.ajaxSettings.async = false;
+        $.post('url地址/show/doSaveSession', {'hotelid': 1}, function (data) {
+            console.log("执行保存session");//模拟先登录
+        });
+        $.ajaxSettings.async = true;
+        // ws://localhost:7001/show  此为通信地址
+        ws = new WebSocket("ws://localhost:9527/hw/socket/");
+
+        // WebSocket有以下3个方法:
+        ws.onopen = function () {
+            console.log("建立链接");
+        }
+        ws.onclose = function () {
+            console.log("onclose");
+        }
+        ws.onmessage = function (msg) {
+            console.log("----------------");
+            console.log(msg.data);
+        }
+    });
+</script>
+</html>

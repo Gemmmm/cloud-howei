@@ -1,0 +1,40 @@
+server:
+  port: 9527
+eureka:
+  instance:
+    hostname: cloud-howei-gateway
+    prefer-ip-address: true
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:7001/eureka/
+
+spring:
+  application:
+    name: cloud-howei-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: auth_api
+          uri: lb://CLOUD-HOWEI-AUTH
+          predicates:
+            - Path=/auth/**
+          filters:
+            - StripPrefix=1
+        - id: haowei_api
+          uri: lb://CLOUD-HOWEI-HW
+          predicates:
+            - Path=/hw/**
+          filters:
+            - StripPrefix=1
+        - id: wa_api
+          uri: lb://CLOUD-HOWEI-WA
+          predicates:
+            - Path=/wa/**
+          filters:
+            - StripPrefix=1
+
+      discovery:
+        locator:
+          enabled: true

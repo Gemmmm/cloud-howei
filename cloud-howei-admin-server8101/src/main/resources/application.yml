@@ -1,0 +1,13 @@
+server:
+  port: 8101
+
+spring:
+  application:
+    name: cloud-howei-admin-server
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:7001/erueka/
+    fetch-registry: true
+    register-with-eureka: true
